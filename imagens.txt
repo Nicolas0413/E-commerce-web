@@ -1,0 +1,14 @@
+Nome: Kablau / Terabit
+
+Produtos: 
+1 Placa de vídeo intel ARC B580
+2 CPU Ryzen 5 5500
+3 CPU Intel Core Ultra 7 270k Plus
+4 Memória DDR4 Corsair Vengeance RGB Pro, 16GB
+5 Intel Z890
+6 B550
+7 Coolermaster
+8 NVME Kingston 2TB
+9 Montech X3 MESH
+
+Categorias: Placa-mãe, CPU, GPU, RAM, Armazenamento, Fonte, Gabinete
