@@ -15,10 +15,19 @@ td{
     width: 200px;
 }
 
-.produto{
-    float: left;
-}
 
 .Img_produto{
-    width: 200px;
+    width: 250px;
+}
+
+.produto{
+    width: 250px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.Nome_produto{
+    max-width: 250px;
+    overflow-wrap: break-word;
 }
