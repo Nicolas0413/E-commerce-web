@@ -222,6 +222,10 @@ td:hover {
     gap: 25px;
 }
 
+.caracteristicas {
+    margin-left: 20px;
+}
+
 .avaliacoes {
     margin: 40px;
 }
