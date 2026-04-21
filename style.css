@@ -124,11 +124,8 @@ td:hover {
     background-color: #1d4ed8;
 }
 
-
-/* login */
-
 .login_container {
-    height: 22vw;
+    height: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,10 +159,8 @@ td:hover {
 }
 
 #cadastro{
-    height: 40vw;
+    height: 50vw;
 }
-
-/* produto */
 
 .produto_page {
     display: grid;
@@ -245,4 +240,66 @@ td:hover {
 .avaliacao span {
     font-size: 12px;
     color: gray;
+}
+
+.carrinho_container {
+    padding: 40px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.item_carrinho {
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.img_carrinho {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.info_carrinho {
+    flex-grow: 1;
+}
+
+.preco_total_item {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.frete_box {
+    background: white;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.frete_box input {
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.resumo_compra {
+    background: white;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: right;
+}
+
+.total_final {
+    margin-top: 15px;
+    color: #2563eb;
 }

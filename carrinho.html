@@ -1,16 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Carrinho - Kablau</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <div id="navbar">
-        <a href="index.html"><img id="logo" src="Img/kablau.png"></a>
-        <a href="login.html" class="btn_comprar">Fazer login</a>
+        <a href="index.html"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+        <a href="index.html" class="btn_comprar">Continuar comprando</a>
     </div>
-    
+
+
+    <div class="carrinho_container">
+        <h2>Seu Carrinho</h2>
+        <div class="item_carrinho">
+            <img src="Img/RAM_corsair.jpg" class="img_carrinho" alt="Memória DDR4 Corsair Vengeance RGB Pro, 16GB (2x8GB)">
+            <div class="info_carrinho">
+                <h3>Memória DDR4 Corsair Vengeance RGB Pro, 16GB (2x8GB)</h3>
+                <p>Preço unitário: <b>R$ 699,90</b></p>
+                <p>Quantidade: 2</p>
+                <p class="preco_total_item">Total: R$ 1.399,8</p>
+            </div>
+        </div>
+
+        <div class="item_carrinho">
+            <img src="Img/R5-5500.jpg" class="img_carrinho" alt="CPU Ryzen 5 5500">
+            <div class="info_carrinho">
+                <h3>CPU Ryzen 5 5500</h3>
+                <p>Preço unitário: <b>R$ 578,99</b></p>
+                <p>Quantidade: 1</p>
+                <p class="preco_total_item">Total: R$ 578,99</p>
+            </div>
+        </div>
+
+        <div class="item_carrinho">
+            <img src="Img/intel-arc-b580.jpg" class="img_carrinho" alt="Placa de vídeo intel ARC B580">
+            <div class="info_carrinho">
+                <h3>Placa de vídeo intel ARC B580</h3>
+                <p>Preço unitário: <b>R$ 2.099,99</b></p>
+                <p>Quantidade: 1</p>
+                <p class="preco_total_item">Total: R$ 2.099,99</p>
+            </div>
+        </div>
+
+        <div class="frete_box">
+            <h3>Calcular Frete</h3>
+            <label>CEP:</label>
+            <input type="text" placeholder="Digite seu CEP">
+            <p>Frete: <b>R$ 35,00</b></p>
+        </div>
+
+        <div class="resumo_compra">
+            <h2>Resumo do Pedido</h2>
+            <p>Subtotal: <b>R$ 870,00</b></p>
+            <p>Frete: <b>R$ 35,00</b></p>
+            <h3 class="total_final">Total da Compra: R$ 905,00</h3>
+            <button class="btn_comprar">
+                Finalizar Compra
+            </button>
+        </div>
+    </div>
+
 </body>
 </html>
