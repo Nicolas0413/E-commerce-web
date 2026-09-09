@@ -25,14 +25,16 @@
 
         <h2>Memória DDR4 Corsair Vengeance RGB Pro 16GB (2x8GB)</h2>
 
-        <p class="preco_avista">R$ 699,90 à vista no PIX</p>
+        <p class="preco_avista" data-preco="699.90">R$ 699,90 à vista no PIX</p>
         <p class="preco_parcelado">ou 10x de R$ 69,99 sem juros</p>
 
         <p class="prazo">Entrega em até 5 dias úteis</p>
         <span>
             <label>Quantidade:</label>
-            <input type="number" value="1" min="1" class="quantidade">
+            <input type="number" value="1" min="1" id="quantidade" class="quantidade">
         </span>
+
+        <p id="valor_parcial" class="valor_parcial">Valor parcial: R$ 699,90</p>
 
         <button class="btn_comprar">Adicionar ao carrinho</button>
 
@@ -98,5 +100,6 @@
 
 </div>
 
+<script src="produto.js"></script>
 </body>
 </html>
