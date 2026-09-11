@@ -91,6 +91,11 @@ td:hover {
     border-radius: 5px;
 }
 
+.categoria_ativa {
+    background-color: #2563eb;
+    border-radius: 5px;
+}
+
 .loja {
     padding: 40px;
     display: grid;

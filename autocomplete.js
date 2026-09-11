@@ -1,5 +1,9 @@
+// autocomplete.js
+// Autocomplete para o campo de busca de produtos da Kablau
+
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Lista de produtos disponíveis na loja (nomes usados na busca)
     const produtos = [
         "Memória DDR4 Corsair Vengeance RGB Pro, 16GB (2x8GB)",
         "Gabinete montech X3 mesh",
@@ -13,13 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
     ];
 
     const input = document.getElementById('pesquisa');
-    if (!input) return; 
+    if (!input) return; // se a página não tiver campo de busca, não faz nada
 
+    // Cria a lista (dropdown) de sugestões e insere logo após o input
     const lista = document.createElement('ul');
     lista.id = 'lista_sugestoes';
     lista.className = 'lista_sugestoes';
     input.parentElement.appendChild(lista);
 
+    // Cartões de produto presentes na página (só existem na página inicial)
     const produtoElementos = document.querySelectorAll('.loja .produto');
 
     let indiceAtivo = -1;
@@ -30,21 +36,13 @@ document.addEventListener('DOMContentLoaded', function () {
         indiceAtivo = -1;
     }
 
+    // Filtra os cards de produto pelo termo digitado (a função combinada com
+    // a categoria mora em filtro-produtos.js)
     function filtrarProdutosNaTela(valor) {
         if (produtoElementos.length === 0) return;
-
-        const termo = valor.trim().toLowerCase();
-
-        produtoElementos.forEach(function (elemento) {
-            const nomeElemento = elemento.querySelector('.Nome_produto');
-            const nome = nomeElemento ? nomeElemento.textContent.toLowerCase() : '';
-
-            if (!termo || nome.includes(termo)) {
-                elemento.style.display = '';
-            } else {
-                elemento.style.display = 'none';
-            }
-        });
+        if (typeof definirTermoBusca === 'function') {
+            definirTermoBusca(valor);
+        }
     }
 
     function mostrarSugestoes(valor) {
@@ -63,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const item = document.createElement('li');
             item.className = 'item_sugestao';
 
+            // destaca o trecho que corresponde ao termo digitado
             const idx = produto.toLowerCase().indexOf(termo);
             const antes = produto.substring(0, idx);
             const meio = produto.substring(idx, idx + termo.length);
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
             item.innerHTML = antes + '<strong>' + meio + '</strong>' + depois;
 
             item.addEventListener('mousedown', function (e) {
-
+                // mousedown (em vez de click) evita perder o valor antes do click disparar
                 e.preventDefault();
                 input.value = produto;
                 limparSugestoes();
@@ -123,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // fecha a lista ao clicar fora do campo de busca
     document.addEventListener('click', function (e) {
         if (!input.parentElement.contains(e.target)) {
             limparSugestoes();
