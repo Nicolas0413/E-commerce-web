@@ -11,22 +11,21 @@
 
 <div id="navbar">
     <a href="index.html"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
-    <label id="barra_pesquisa" for="pesquisa"><input type="text" id="pesquisa" placeholder="Busque na Kablau"></label>
     <a href="index.html" class="btn_comprar">Voltar para loja</a>
 </div>
 
 <div class="produto_page">
 
     <div class="produto_imagem">
-        <img src="Img/RAM_corsair.jpg" alt="Memória DDR4 Corsair Vengeance RGB Pro 16GB (2x8GB)">
+        <img id="imagem_produto" src="" alt="">
     </div>
 
     <div class="produto_compra">
 
-        <h2>Memória DDR4 Corsair Vengeance RGB Pro 16GB (2x8GB)</h2>
+        <h2 id="nome_produto"></h2>
 
-        <p class="preco_avista" data-preco="699.90">R$ 699,90 à vista no PIX</p>
-        <p class="preco_parcelado">ou 10x de R$ 69,99 sem juros</p>
+        <p id="preco_avista" class="preco_avista"></p>
+        <p id="preco_parcelado" class="preco_parcelado"></p>
 
         <p class="prazo">Entrega em até 5 dias úteis</p>
         <span>
@@ -34,9 +33,10 @@
             <input type="number" value="1" min="1" id="quantidade" class="quantidade">
         </span>
 
-        <p id="valor_parcial" class="valor_parcial">Valor parcial: R$ 699,90</p>
+        <p id="valor_parcial" class="valor_parcial"></p>
 
-        <button class="btn_comprar">Adicionar ao carrinho</button>
+        <button type="button" id="btn_adicionar_carrinho" class="btn_comprar">Adicionar ao carrinho</button>
+        <p id="mensagem_carrinho" class="mensagem_status"></p>
 
         <h3>Formas de pagamento</h3>
         <ul class="pagamentos">
@@ -54,18 +54,12 @@
 
     <h3>Características do Produto:</h3>
 
-    <ul class="caracteristicas">
-        <li>Capacidade: 16GB (2x8GB).</li>
-        <li>Tipo: DDR4.</li>
-        <li>Frequência: 3200MHz.</li>
-        <li>RGB Integrado.</li>
-        <li>Compatível com Intel e AMD.</li>
+    <ul id="lista_caracteristicas" class="caracteristicas">
     </ul>
 
     <h3>Descrição:</h3>
 
-    <p>
-        A memória DDR4 VENGEANCE RGB PRO Series da CORSAIR com overclocking ilumina seu PC com luzes RGB dinâmicas multizona enquanto oferece o melhor desempenho.
+    <p id="descricao_produto">
     </p>
 
 </div>
@@ -74,32 +68,13 @@
 
     <h3>Avaliações dos usuários:</h3>
 
-    <div class="avaliacao">
-        ⭐⭐⭐
-        <span>Pietro -</span><span>- 22/02/2026</span>
-        <p>malditas IAS que estão deixando tudo caro. Basta de novela de frutinha.</p>
-    </div>
-
-    <div class="avaliacao">
-        ⭐⭐⭐⭐⭐
-        <span>Nicolas Neto -</span><span>- 10/03/2026</span>
-        <p>Um preço justo considerando as novelas de frutinhas. Viva as IAS!!!</p>
-    </div>
-
-    <div class="avaliacao">
-        ⭐
-        <span>Cauã -</span><span>- 05/01/2026</span>
-        <p>Comprei e explodiu.</p>
-    </div>
-
-    <div class="avaliacao">
-        ⭐⭐
-        <span>Petrus Gunder -</span><span>- 18/12/2025</span>
-        <p>esa Tranceira veio muito legal mas ta muinto caro nao recomento</p>
+    <div id="lista_avaliacoes">
     </div>
 
 </div>
 
+<script src="produtos.js"></script>
+<script src="carrinho-utils.js"></script>
 <script src="produto.js"></script>
 </body>
 </html>

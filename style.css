@@ -352,6 +352,41 @@ td:hover {
     border: 1px solid #ccc;
 }
 
+.frete_box #btn_aplicar_cupom {
+    margin-left: 10px;
+    padding: 8px 16px;
+}
+
+.mensagem_status {
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.mensagem_sucesso {
+    color: #16a34a;
+}
+
+.mensagem_erro {
+    color: #b91c1c;
+}
+
+.linha_desconto b {
+    color: #b91c1c;
+}
+
+.info_carrinho label {
+    display: block;
+    margin: 8px 0;
+}
+
+.info_carrinho .quantidade_carrinho {
+    width: 60px;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-left: 6px;
+}
+
 .resumo_compra {
     background: white;
     margin-top: 30px;
