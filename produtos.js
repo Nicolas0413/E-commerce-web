@@ -37,8 +37,8 @@ const produtos = [
         ],
         descricao: "O gabinete Montech X3 Mesh oferece ótimo fluxo de ar graças ao seu frontal perfurado, além de um visual moderno com vidro temperado lateral para exibir seus componentes.",
         avaliacoes: [
-            { estrelas: 5, autor: "Marina", data: "12/01/2026", texto: "Fluxo de ar excelente, temperatura caiu bastante." },
-            { estrelas: 4, autor: "Diego", data: "03/02/2026", texto: "Bom custo-benefício, só achei a lataria um pouco fina." }
+            { estrelas: 5, autor: "Pedro ledless", data: "12/01/2026", texto: "Apenas por ser um gabinete sem frufru ja vale o preço." },
+            { estrelas: 4, autor: "Ryan Martinez", data: "03/02/2026", texto: "Vale lembrar que precisa de uma chave philips pra abrir." }
         ]
     },
     {
@@ -57,8 +57,8 @@ const produtos = [
         ],
         descricao: "O Ryzen 5 5500 é uma excelente opção custo-benefício para quem quer montar um PC gamer de entrada, com ótimo desempenho em jogos e tarefas do dia a dia.",
         avaliacoes: [
-            { estrelas: 5, autor: "Bruno", data: "15/01/2026", texto: "Ótimo processador pelo preço, roda tudo tranquilo." },
-            { estrelas: 4, autor: "Ana", data: "20/01/2026", texto: "Bom desempenho, só senti falta de vídeo integrado." }
+            { estrelas: 5, autor: "Hank", data: "15/01/2026", texto: "Serviu bem pro que eu queria." },
+            { estrelas: 4, autor: "Jesse", data: "20/01/2026", texto: "Cara, esse processador é ótimo, mas é PCI-e 3.0" }
         ]
     },
     {
@@ -77,8 +77,8 @@ const produtos = [
         ],
         descricao: "O Core Ultra 7 270K Plus entrega desempenho de ponta para gamers e criadores de conteúdo, com arquitetura eficiente e suporte às tecnologias mais recentes.",
         avaliacoes: [
-            { estrelas: 5, autor: "Rafael", data: "01/02/2026", texto: "Processador extremamente rápido, recomendo." },
-            { estrelas: 5, autor: "Camila", data: "05/02/2026", texto: "Excelente para edição de vídeo e jogos em 4K." }
+            { estrelas: 5, autor: "Rafael", data: "01/02/2026", texto: "Apesar de ser a mesma geração de antes, o desempenho melhorou bastante." },
+            { estrelas: 5, autor: "Jorge Aldubo", data: "05/02/2026", texto: "funcionou bem no adobe, desempenho aumentou muito" }
         ]
     },
     {
@@ -97,8 +97,8 @@ const produtos = [
         ],
         descricao: "A Intel ARC B580 é uma placa de vídeo com ótimo custo-benefício, entregando boa performance em jogos atuais com recursos modernos como ray tracing e upscaling via XeSS.",
         avaliacoes: [
-            { estrelas: 4, autor: "Lucas", data: "10/02/2026", texto: "Boa placa para quem quer sair do integrado sem gastar muito." },
-            { estrelas: 3, autor: "Fernanda", data: "12/02/2026", texto: "Drivers ainda precisam de alguns ajustes, mas performance é boa." }
+            { estrelas: 5, autor: "Cauã", data: "10/02/2026", texto: "Melhor placa já feita na história." },
+            { estrelas: 2, autor: "Nicolas", data: "12/02/2026", texto: "Quem compra uma placa da intel? se fosse processador eu até entenderia." }
         ]
     },
     {
@@ -117,8 +117,8 @@ const produtos = [
         ],
         descricao: "A placa-mãe Maxsun Z890 oferece recursos modernos para as CPUs Intel mais recentes, com boa entrega de energia e conectividade completa.",
         avaliacoes: [
-            { estrelas: 5, autor: "Thiago", data: "18/02/2026", texto: "Placa robusta, instalação tranquila." },
-            { estrelas: 4, autor: "Juliana", data: "20/02/2026", texto: "Boa placa, manual poderia ser mais detalhado." }
+            { estrelas: 5, autor: "Thiago", data: "18/02/2026", texto: "Fiz overclock e ficou liso liso liso." },
+            { estrelas: 2, autor: "Romeu", data: "20/02/2026", texto: "A bios tá em chines e eu não sei mudar." }
         ]
     },
     {
@@ -137,8 +137,8 @@ const produtos = [
         ],
         descricao: "A Aorus Elite B550 é uma placa-mãe robusta para quem quer montar um PC Ryzen com boa entrega de energia e recursos completos para jogos e produtividade.",
         avaliacoes: [
-            { estrelas: 5, autor: "Marcelo", data: "22/02/2026", texto: "Ótima placa, nunca tive problemas." },
-            { estrelas: 4, autor: "Patrícia", data: "25/02/2026", texto: "Boa qualidade de construção, recomendo." }
+            { estrelas: 3, autor: "Marcelo", data: "22/02/2026", texto: "Não veio parafuso do NVME" },
+            { estrelas: 1, autor: "Eduardo", data: "25/02/2026", texto: "Queimou com 3 semanas de uso e não me ressarciram." }
         ]
     },
     {
@@ -157,8 +157,8 @@ const produtos = [
         ],
         descricao: "A fonte Coolermaster Gold 850 garante energia estável e eficiente para configurações de alto desempenho, com cabos modulares para facilitar a montagem.",
         avaliacoes: [
-            { estrelas: 5, autor: "Eduardo", data: "01/03/2026", texto: "Fonte silenciosa e estável, sem oscilações." },
-            { estrelas: 5, autor: "Renata", data: "03/03/2026", texto: "Excelente, montagem ficou bem mais limpa com os cabos modulares." }
+            { estrelas: 5, autor: "Henrique", data: "01/03/2026", texto: "Meu pc ficou mais bonito e Não aumentou a conta de luz." },
+            { estrelas: 5, autor: "Luiza", data: "03/03/2026", texto: "Está alimentando meu servidor tranquilamente." }
         ]
     },
     {
@@ -177,8 +177,8 @@ const produtos = [
         ],
         descricao: "O SSD NVMe Kingston 2TB oferece velocidade e capacidade para quem precisa de armazenamento rápido para jogos, aplicativos e arquivos grandes.",
         avaliacoes: [
-            { estrelas: 5, autor: "Gabriel", data: "05/03/2026", texto: "Muito rápido, instalação simples." },
-            { estrelas: 4, autor: "Beatriz", data: "07/03/2026", texto: "Ótimo SSD, só esquenta um pouco em uso intenso." }
+            { estrelas: 5, autor: "Eduardo", data: "05/03/2026", texto: "Têm bastantante armazenamento, mas poderia ser mais" },
+            { estrelas: 5, autor: "Eduardo", data: "07/03/2026", texto: "Comprei mais, agora sim ficou bom." }
         ]
     }
 ];
