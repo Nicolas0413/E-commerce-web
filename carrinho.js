@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const faixasDeFrete = [
-        { cidade: 'Paulo Lopes', min: 88490000, max: 88494999, valor: 30.00 },
-        { cidade: 'Garopaba', min: 88495000, max: 88499999, valor: 25.00 },
-        { cidade: 'Imbituba', min: 88780000, max: 88789999, valor: 15.00 }
+        { cidade: 'Paulo Lopes', min: 88490000, max: 88490000, valor: 30.00 },
+        { cidade: 'Garopaba', min: 88495000, max: 88495000, valor: 25.00 },
+        { cidade: 'Imbituba', min: 88780000, max: 88780000, valor: 15.00 }
     ];
 
     const cupons = {
         'KABLAU10': { tipo: 'desconto', valor: 0.10, mensagem: 'Cupom aplicado! 10% de desconto no valor total.' },
+        'KABUMRUIM15': { tipo: 'desconto', valor: 0.15, mensagem: 'Cupom aplicado! 15% de desconto no valor total.' },
         'FRETEGRATIS': { tipo: 'frete_gratis', mensagem: 'Cupom aplicado! Frete grátis.' }
     };
 
