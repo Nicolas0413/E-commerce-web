@@ -1,25 +1,16 @@
-// carrinho.js
-// Renderiza os itens do carrinho (guardados via carrinho-utils.js) usando os
-// dados de produtos.js, e cuida da quantidade, do frete por CEP e dos cupons.
-
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ---- Faixas de CEP atendidas pela loja ----
     const faixasDeFrete = [
         { cidade: 'Paulo Lopes', min: 88490000, max: 88494999, valor: 30.00 },
         { cidade: 'Garopaba', min: 88495000, max: 88499999, valor: 25.00 },
         { cidade: 'Imbituba', min: 88780000, max: 88789999, valor: 15.00 }
     ];
 
-    // ---- Cupons disponíveis ----
-    // KABLAU10    -> desconto percentual no valor total dos produtos
-    // FRETEGRATIS -> zera o frete, independente do valor da compra
     const cupons = {
         'KABLAU10': { tipo: 'desconto', valor: 0.10, mensagem: 'Cupom aplicado! 10% de desconto no valor total.' },
         'FRETEGRATIS': { tipo: 'frete_gratis', mensagem: 'Cupom aplicado! Frete grátis.' }
     };
 
-    // ---- Estado atual do carrinho ----
     let freteCalculado = 0;
     let descontoPercentual = 0;
     let freteGratisAtivo = false;
@@ -46,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Monta na tela os cards de item a partir do que está salvo no carrinho
     function renderizarItens() {
         const carrinho = obterCarrinho();
         containerItens.innerHTML = '';
@@ -59,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         carrinho.forEach(function (itemSalvo) {
             const produto = produtos.find(function (p) { return p.id === itemSalvo.id; });
-            if (!produto) return; // produto não existe mais no catálogo
+            if (!produto) return;
 
             const div = document.createElement('div');
             div.className = 'item_carrinho';
@@ -103,13 +93,11 @@ document.addEventListener('DOMContentLoaded', function () {
             div.appendChild(info);
             containerItens.appendChild(div);
 
-            // Atualiza o total do item em tempo real enquanto o usuário digita
             inputQuantidade.addEventListener('input', function () {
                 atualizarTotalItem(produto, inputQuantidade, totalItem);
                 atualizarResumo();
             });
 
-            // Ao confirmar a alteração (sair do campo ou apertar Enter), trata o caso de quantidade zero
             inputQuantidade.addEventListener('change', function () {
                 tratarMudancaQuantidade(produto, inputQuantidade, totalItem);
             });
@@ -118,14 +106,12 @@ document.addEventListener('DOMContentLoaded', function () {
         atualizarResumo();
     }
 
-    // Atualiza o texto "Total: ..." de um item de acordo com a quantidade atual do campo
     function atualizarTotalItem(produto, input, totalItemElemento) {
         let quantidadeAtual = parseInt(input.value, 10);
         if (isNaN(quantidadeAtual) || quantidadeAtual < 0) quantidadeAtual = 0;
         totalItemElemento.textContent = 'Total: ' + formatarMoeda(produto.preco * quantidadeAtual);
     }
 
-    // Decide o que fazer quando o usuário confirma uma nova quantidade
     function tratarMudancaQuantidade(produto, input, totalItemElemento) {
         let quantidade = parseInt(input.value, 10);
         if (isNaN(quantidade) || quantidade < 0) {
@@ -141,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 removerDoCarrinho(produto.id);
                 renderizarItens();
             } else {
-                // usuário desistiu: volta para 1 unidade e corrige o total exibido
                 input.value = 1;
                 atualizarQuantidadeCarrinho(produto.id, 1);
                 atualizarTotalItem(produto, input, totalItemElemento);
@@ -154,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
         atualizarResumo();
     }
 
-    // Soma o total de todos os itens atualmente na tela
     function calcularSubtotal() {
         let subtotal = 0;
 
@@ -171,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return subtotal;
     }
 
-    // Procura a faixa de CEP correspondente ao valor digitado
     function calcularFretePorCep(cepDigitado) {
         const somenteNumeros = cepDigitado.replace(/\D/g, '');
 
@@ -203,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
         valorFreteElemento.textContent = formatarMoeda(freteCalculado);
     }
 
-    // Aplica o cupom digitado (se existir)
     function aplicarCupom() {
         const codigo = inputCupom.value.trim().toUpperCase();
 
@@ -241,7 +223,6 @@ document.addEventListener('DOMContentLoaded', function () {
         atualizarResumo();
     }
 
-    // Recalcula tudo (subtotal, desconto, frete e total) e atualiza a tela
     function atualizarResumo() {
         const subtotal = calcularSubtotal();
         const desconto = subtotal * descontoPercentual;
@@ -265,7 +246,6 @@ document.addEventListener('DOMContentLoaded', function () {
         totalFinalElemento.textContent = formatarMoeda(total);
     }
 
-    // ---- Eventos ----
 
     inputCep.addEventListener('input', function () {
         calcularFretePorCep(inputCep.value);
@@ -281,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ---- Inicialização ----
     linhaDesconto.style.display = 'none';
     renderizarItens();
 });
