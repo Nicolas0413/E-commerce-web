@@ -1,0 +1,2115 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+Img/
+  b550m-asus-elite.webp
+  core-u7-270k+.jpg
+  fonte-coolermaster-gold-850.webp
+  gabinete_Montech_X3_MESH.jpg
+  intel-arc-b580.jpg
+  kablau.png
+  maxsun-z890.webp
+  nvme-2tb-kingston.jpg
+  R5-5500.jpg
+  RAM_corsair.jpg
+js/
+  autocomplete.js
+  cadastro.js
+  carrinho-utils.js
+  carrinho.js
+  categorias.js
+  filtro-produtos.js
+  login.js
+  produto.js
+  produtos.js
+sql/
+  kablau.sql
+auth.php
+cadastro.php
+carrinho.php
+conexao.php
+index.php
+login.php
+logout.php
+produto.html
+readme.txt
+style.css
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="js/autocomplete.js">
+document.addEventListener('DOMContentLoaded', function () {
+
+    const produtos = [
+        "Memória DDR4 Corsair Vengeance RGB Pro, 16GB (2x8GB)",
+        "Gabinete montech X3 mesh",
+        "CPU Ryzen 5 5500",
+        "CPU Intel Core Ultra 7 270k Plus",
+        "Placa de vídeo intel ARC B580",
+        "Placa mãe Maxsun Z890",
+        "Placa mãe B550 Aorus Elite",
+        "Fonte Coolermaster Gold 850",
+        "NVME Kingston 2TB"
+    ];
+
+    const input = document.getElementById('pesquisa');
+    if (!input) return;
+    
+    const lista = document.createElement('ul');
+    lista.id = 'lista_sugestoes';
+    lista.className = 'lista_sugestoes';
+    input.parentElement.appendChild(lista);
+
+    const produtoElementos = document.querySelectorAll('.loja .produto');
+
+    let indiceAtivo = -1;
+
+    function limparSugestoes() {
+        lista.innerHTML = '';
+        lista.style.display = 'none';
+        indiceAtivo = -1;
+    }
+
+    function filtrarProdutosNaTela(valor) {
+        if (produtoElementos.length === 0) return;
+        if (typeof definirTermoBusca === 'function') {
+            definirTermoBusca(valor);
+        }
+    }
+
+    function mostrarSugestoes(valor) {
+        limparSugestoes();
+
+        const termo = valor.trim().toLowerCase();
+        if (!termo) return;
+
+        const filtrados = produtos.filter(function (produto) {
+            return produto.toLowerCase().includes(termo);
+        });
+
+        if (filtrados.length === 0) return;
+
+        filtrados.forEach(function (produto) {
+            const item = document.createElement('li');
+            item.className = 'item_sugestao';
+
+            const idx = produto.toLowerCase().indexOf(termo);
+            const antes = produto.substring(0, idx);
+            const meio = produto.substring(idx, idx + termo.length);
+            const depois = produto.substring(idx + termo.length);
+            item.innerHTML = antes + '<strong>' + meio + '</strong>' + depois;
+
+            item.addEventListener('mousedown', function (e) {
+                e.preventDefault();
+                input.value = produto;
+                limparSugestoes();
+                filtrarProdutosNaTela(input.value);
+                input.focus();
+            });
+
+            lista.appendChild(item);
+        });
+
+        lista.style.display = 'block';
+    }
+
+    function atualizarItemAtivo(itens) {
+        itens.forEach(function (item) {
+            item.classList.remove('ativo');
+        });
+        if (indiceAtivo >= 0 && itens[indiceAtivo]) {
+            itens[indiceAtivo].classList.add('ativo');
+            itens[indiceAtivo].scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    input.addEventListener('input', function () {
+        mostrarSugestoes(input.value);
+        filtrarProdutosNaTela(input.value);
+    });
+
+    input.addEventListener('keydown', function (e) {
+        const itens = lista.querySelectorAll('.item_sugestao');
+        if (itens.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            indiceAtivo = (indiceAtivo + 1) % itens.length;
+            atualizarItemAtivo(itens);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            indiceAtivo = (indiceAtivo - 1 + itens.length) % itens.length;
+            atualizarItemAtivo(itens);
+        } else if (e.key === 'Enter') {
+            if (indiceAtivo >= 0) {
+                e.preventDefault();
+                input.value = itens[indiceAtivo].textContent;
+                limparSugestoes();
+                filtrarProdutosNaTela(input.value);
+            }
+        } else if (e.key === 'Escape') {
+            limparSugestoes();
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!input.parentElement.contains(e.target)) {
+            limparSugestoes();
+        }
+    });
+});
+</file>
+
+<file path="js/cadastro.js">
+document.addEventListener('DOMContentLoaded', function () {
+
+    const form = document.querySelector('#cadastro .login_card');
+    const alerta = document.getElementById('alerta_cadastro');
+
+    if (!form || !alerta) return;
+
+    const campos = [
+        { id: 'nome', texto: 'o nome' },
+        { id: 'usuario', texto: 'o usuário' },
+        { id: 'senha', texto: 'a senha' },
+        { id: 'cpf', texto: 'o cpf' },
+        { id: 'nascimento', texto: 'a data de nascimento' },
+        { id: 'email', texto: 'o email' }
+    ];
+
+    form.addEventListener('submit', function (e) {
+        const faltando = campos.filter(function (campo) {
+            const input = document.getElementById(campo.id);
+            return !input || input.value.trim() === '';
+        });
+
+        if (faltando.length > 0) {
+            // Só bloqueia o envio quando há campo vazio;
+            // caso contrário o formulário segue para o cadastro.php
+            e.preventDefault();
+
+            alerta.innerHTML = faltando.map(function (campo) {
+                return '<div>Faltou digitar ' + campo.texto + '</div>';
+            }).join('');
+            alerta.classList.add('alerta_visivel');
+        }
+    });
+});
+</file>
+
+<file path="js/carrinho-utils.js">
+const CHAVE_CARRINHO = 'kablau_carrinho';
+
+function obterCarrinho() {
+    try {
+        const dados = localStorage.getItem(CHAVE_CARRINHO);
+        return dados ? JSON.parse(dados) : [];
+    } catch (erro) {
+        return [];
+    }
+}
+
+function salvarCarrinho(carrinho) {
+    localStorage.setItem(CHAVE_CARRINHO, JSON.stringify(carrinho));
+}
+
+function adicionarAoCarrinho(idProduto, quantidade) {
+    const carrinho = obterCarrinho();
+    const itemExistente = carrinho.find(function (item) { return item.id === idProduto; });
+
+    if (itemExistente) {
+        itemExistente.quantidade += quantidade;
+    } else {
+        carrinho.push({ id: idProduto, quantidade: quantidade });
+    }
+
+    salvarCarrinho(carrinho);
+}
+
+function atualizarQuantidadeCarrinho(idProduto, novaQuantidade) {
+    const carrinho = obterCarrinho();
+    const item = carrinho.find(function (item) { return item.id === idProduto; });
+
+    if (item) {
+        item.quantidade = novaQuantidade;
+        salvarCarrinho(carrinho);
+    }
+}
+
+function removerDoCarrinho(idProduto) {
+    const carrinho = obterCarrinho().filter(function (item) { return item.id !== idProduto; });
+    salvarCarrinho(carrinho);
+}
+</file>
+
+<file path="js/carrinho.js">
+document.addEventListener('DOMContentLoaded', function () {
+
+    const faixasDeFrete = [
+        { cidade: 'Paulo Lopes', min: 88490000, max: 88490000, valor: 30.00 },
+        { cidade: 'Garopaba', min: 88495000, max: 88495000, valor: 25.00 },
+        { cidade: 'Imbituba', min: 88780000, max: 88780000, valor: 15.00 }
+    ];
+
+    const cupons = {
+        'KABLAU10': { tipo: 'desconto', valor: 0.10, mensagem: 'Cupom aplicado! 10% de desconto no valor total.' },
+        'KABUMRUIM15': { tipo: 'desconto', valor: 0.15, mensagem: 'Cupom aplicado! 15% de desconto no valor total.' },
+        'FRETEGRATIS': { tipo: 'frete_gratis', mensagem: 'Cupom aplicado! Frete grátis.' }
+    };
+
+    let freteCalculado = 0;
+    let descontoPercentual = 0;
+    let freteGratisAtivo = false;
+
+    const containerItens = document.getElementById('lista_itens_carrinho');
+    const inputCep = document.getElementById('cep');
+    const mensagemFrete = document.getElementById('mensagem_frete');
+    const valorFreteElemento = document.getElementById('valor_frete');
+
+    const inputCupom = document.getElementById('cupom');
+    const botaoCupom = document.getElementById('btn_aplicar_cupom');
+    const mensagemCupom = document.getElementById('mensagem_cupom');
+
+    const subtotalElemento = document.getElementById('subtotal_valor');
+    const linhaDesconto = document.getElementById('linha_desconto');
+    const descontoElemento = document.getElementById('desconto_valor');
+    const freteResumoElemento = document.getElementById('frete_resumo');
+    const totalFinalElemento = document.getElementById('total_final_valor');
+
+    function formatarMoeda(valor) {
+        return valor.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+    }
+
+    function renderizarItens() {
+        const carrinho = obterCarrinho();
+        containerItens.innerHTML = '';
+
+        if (carrinho.length === 0) {
+            containerItens.innerHTML = '<p>Seu carrinho está vazio.</p>';
+            atualizarResumo();
+            return;
+        }
+
+        carrinho.forEach(function (itemSalvo) {
+            const produto = produtos.find(function (p) { return p.id === itemSalvo.id; });
+            if (!produto) return;
+
+            const div = document.createElement('div');
+            div.className = 'item_carrinho';
+            div.dataset.id = produto.id;
+            div.dataset.preco = produto.preco;
+
+            const img = document.createElement('img');
+            img.src = produto.imagem;
+            img.className = 'img_carrinho';
+            img.alt = produto.alt || produto.nome;
+
+            const info = document.createElement('div');
+            info.className = 'info_carrinho';
+
+            const titulo = document.createElement('h3');
+            titulo.textContent = produto.nome;
+
+            const precoUnitario = document.createElement('p');
+            precoUnitario.innerHTML = 'Preço unitário: <b>' + formatarMoeda(produto.preco) + '</b>';
+
+            const label = document.createElement('label');
+            label.textContent = 'Quantidade:';
+
+            const inputQuantidade = document.createElement('input');
+            inputQuantidade.type = 'number';
+            inputQuantidade.className = 'quantidade_carrinho';
+            inputQuantidade.min = '0';
+            inputQuantidade.value = itemSalvo.quantidade;
+            label.appendChild(inputQuantidade);
+
+            const totalItem = document.createElement('p');
+            totalItem.className = 'preco_total_item';
+            totalItem.textContent = 'Total: ' + formatarMoeda(produto.preco * itemSalvo.quantidade);
+
+            info.appendChild(titulo);
+            info.appendChild(precoUnitario);
+            info.appendChild(label);
+            info.appendChild(totalItem);
+
+            div.appendChild(img);
+            div.appendChild(info);
+            containerItens.appendChild(div);
+
+            inputQuantidade.addEventListener('input', function () {
+                atualizarTotalItem(produto, inputQuantidade, totalItem);
+                atualizarResumo();
+            });
+
+            inputQuantidade.addEventListener('change', function () {
+                tratarMudancaQuantidade(produto, inputQuantidade, totalItem);
+            });
+        });
+
+        atualizarResumo();
+    }
+
+    function atualizarTotalItem(produto, input, totalItemElemento) {
+        let quantidadeAtual = parseInt(input.value, 10);
+        if (isNaN(quantidadeAtual) || quantidadeAtual < 0) quantidadeAtual = 0;
+        totalItemElemento.textContent = 'Total: ' + formatarMoeda(produto.preco * quantidadeAtual);
+    }
+
+    function tratarMudancaQuantidade(produto, input, totalItemElemento) {
+        let quantidade = parseInt(input.value, 10);
+        if (isNaN(quantidade) || quantidade < 0) {
+            quantidade = 0;
+        }
+
+        if (quantidade === 0) {
+            const confirmarRemocao = window.confirm(
+                'Deseja realmente remover "' + produto.nome + '" do carrinho?'
+            );
+
+            if (confirmarRemocao) {
+                removerDoCarrinho(produto.id);
+                renderizarItens();
+            } else {
+                input.value = 1;
+                atualizarQuantidadeCarrinho(produto.id, 1);
+                atualizarTotalItem(produto, input, totalItemElemento);
+                atualizarResumo();
+            }
+            return;
+        }
+
+        atualizarQuantidadeCarrinho(produto.id, quantidade);
+        atualizarResumo();
+    }
+
+    function calcularSubtotal() {
+        let subtotal = 0;
+
+        document.querySelectorAll('#lista_itens_carrinho .item_carrinho').forEach(function (item) {
+            const preco = parseFloat(item.dataset.preco);
+            const inputQuantidade = item.querySelector('.quantidade_carrinho');
+
+            let quantidade = parseInt(inputQuantidade.value, 10);
+            if (isNaN(quantidade) || quantidade < 0) quantidade = 0;
+
+            subtotal += preco * quantidade;
+        });
+
+        return subtotal;
+    }
+
+    function calcularFretePorCep(cepDigitado) {
+        const somenteNumeros = cepDigitado.replace(/\D/g, '');
+
+        if (somenteNumeros.length !== 8) {
+            freteCalculado = 0;
+            mensagemFrete.textContent = '';
+            mensagemFrete.classList.remove('mensagem_sucesso', 'mensagem_erro');
+            valorFreteElemento.textContent = formatarMoeda(0);
+            return;
+        }
+
+        const numeroCep = parseInt(somenteNumeros, 10);
+        const faixaEncontrada = faixasDeFrete.find(function (faixa) {
+            return numeroCep >= faixa.min && numeroCep <= faixa.max;
+        });
+
+        if (faixaEncontrada) {
+            freteCalculado = faixaEncontrada.valor;
+            mensagemFrete.textContent = 'Entrega em ' + faixaEncontrada.cidade + '.';
+            mensagemFrete.classList.remove('mensagem_erro');
+            mensagemFrete.classList.add('mensagem_sucesso');
+        } else {
+            freteCalculado = 0;
+            mensagemFrete.textContent = 'No momento só entregamos em Garopaba, Imbituba e Paulo Lopes.';
+            mensagemFrete.classList.remove('mensagem_sucesso');
+            mensagemFrete.classList.add('mensagem_erro');
+        }
+
+        valorFreteElemento.textContent = formatarMoeda(freteCalculado);
+    }
+
+    function aplicarCupom() {
+        const codigo = inputCupom.value.trim().toUpperCase();
+
+        if (!codigo) {
+            mensagemCupom.textContent = 'Digite um cupom para aplicar.';
+            mensagemCupom.classList.remove('mensagem_sucesso');
+            mensagemCupom.classList.add('mensagem_erro');
+            return;
+        }
+
+        const cupom = cupons[codigo];
+
+        if (!cupom) {
+            descontoPercentual = 0;
+            freteGratisAtivo = false;
+            mensagemCupom.textContent = 'Cupom inválido.';
+            mensagemCupom.classList.remove('mensagem_sucesso');
+            mensagemCupom.classList.add('mensagem_erro');
+            atualizarResumo();
+            return;
+        }
+
+        if (cupom.tipo === 'desconto') {
+            descontoPercentual = cupom.valor;
+            freteGratisAtivo = false;
+        } else if (cupom.tipo === 'frete_gratis') {
+            freteGratisAtivo = true;
+            descontoPercentual = 0;
+        }
+
+        mensagemCupom.textContent = cupom.mensagem;
+        mensagemCupom.classList.remove('mensagem_erro');
+        mensagemCupom.classList.add('mensagem_sucesso');
+
+        atualizarResumo();
+    }
+
+    function atualizarResumo() {
+        const subtotal = calcularSubtotal();
+        const desconto = subtotal * descontoPercentual;
+        const subtotalComDesconto = subtotal - desconto;
+        const frete = freteGratisAtivo ? 0 : freteCalculado;
+        const total = subtotalComDesconto + frete;
+
+        subtotalElemento.textContent = formatarMoeda(subtotal);
+
+        if (descontoPercentual > 0) {
+            linhaDesconto.style.display = 'block';
+            descontoElemento.textContent = '- ' + formatarMoeda(desconto);
+        } else {
+            linhaDesconto.style.display = 'none';
+        }
+
+        freteResumoElemento.textContent = freteGratisAtivo
+            ? 'Grátis'
+            : formatarMoeda(frete);
+
+        totalFinalElemento.textContent = formatarMoeda(total);
+    }
+
+
+    inputCep.addEventListener('input', function () {
+        calcularFretePorCep(inputCep.value);
+        atualizarResumo();
+    });
+
+    botaoCupom.addEventListener('click', aplicarCupom);
+
+    inputCupom.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            aplicarCupom();
+        }
+    });
+
+    linhaDesconto.style.display = 'none';
+    renderizarItens();
+});
+</file>
+
+<file path="js/categorias.js">
+document.addEventListener('DOMContentLoaded', function () {
+
+    const celulas = document.querySelectorAll('table td');
+    if (celulas.length === 0) return;
+
+    celulas.forEach(function (celula) {
+        celula.addEventListener('click', function () {
+            const categoria = celula.textContent.trim();
+
+            const categoriaAtiva = (typeof definirCategoria === 'function')
+                ? definirCategoria(categoria)
+                : null;
+
+            celulas.forEach(function (c) {
+                c.classList.remove('categoria_ativa');
+            });
+
+            if (categoriaAtiva) {
+                celula.classList.add('categoria_ativa');
+            }
+        });
+    });
+});
+</file>
+
+<file path="js/filtro-produtos.js">
+const filtroProdutos = {
+    termo: '',
+    categoria: null
+};
+
+function aplicarFiltroProdutos() {
+    const produtoElementos = document.querySelectorAll('.loja .produto');
+    if (produtoElementos.length === 0) return;
+
+    const termo = filtroProdutos.termo.trim().toLowerCase();
+    const categoria = filtroProdutos.categoria;
+
+    produtoElementos.forEach(function (elemento) {
+        const nomeElemento = elemento.querySelector('.Nome_produto');
+        const nome = nomeElemento ? nomeElemento.textContent.toLowerCase() : '';
+        const categoriaDoProduto = elemento.dataset.categoria || '';
+
+        const combinaComBusca = !termo || nome.includes(termo);
+        const combinaComCategoria = !categoria || categoriaDoProduto === categoria;
+
+        elemento.style.display = (combinaComBusca && combinaComCategoria) ? '' : 'none';
+    });
+}
+
+function definirTermoBusca(valor) {
+    filtroProdutos.termo = valor || '';
+    aplicarFiltroProdutos();
+}
+
+function definirCategoria(categoria) {
+    filtroProdutos.categoria = (filtroProdutos.categoria === categoria) ? null : categoria;
+    aplicarFiltroProdutos();
+    return filtroProdutos.categoria;
+}
+</file>
+
+<file path="js/login.js">
+document.addEventListener('DOMContentLoaded', function () {
+
+    const form = document.querySelector('.login_card');
+    const inputUsuario = document.getElementById('usuario');
+    const inputSenha = document.getElementById('senha');
+    const alerta = document.getElementById('alerta_login');
+
+    if (!form || !inputUsuario || !inputSenha || !alerta) return;
+
+    form.addEventListener('submit', function (e) {
+        const usuario = inputUsuario.value.trim();
+        const senha = inputSenha.value.trim();
+
+        if (!usuario || !senha) {
+            // Só bloqueia o envio quando há campo vazio;
+            // caso contrário o formulário segue para o login.php
+            e.preventDefault();
+            alerta.textContent = 'É necessário digitar usuário e senha para prosseguir';
+            alerta.classList.add('alerta_visivel');
+        }
+    });
+});
+</file>
+
+<file path="js/produto.js">
+document.addEventListener('DOMContentLoaded', function () {
+
+    function formatarMoeda(valor) {
+        return valor.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+    }
+
+    const parametros = new URLSearchParams(window.location.search);
+    let id = parseInt(parametros.get('id'), 10);
+    if (isNaN(id)) id = 1;
+
+    const produto = produtos.find(function (p) { return p.id === id; }) || produtos[0];
+    if (!produto) return;
+
+    document.title = produto.nome + ' - Kablau';
+
+    const imagemElemento = document.getElementById('imagem_produto');
+    if (imagemElemento) {
+        imagemElemento.src = produto.imagem;
+        imagemElemento.alt = produto.alt || produto.nome;
+    }
+
+    const nomeElemento = document.getElementById('nome_produto');
+    if (nomeElemento) nomeElemento.textContent = produto.nome;
+
+    const precoElemento = document.getElementById('preco_avista');
+    if (precoElemento) {
+        precoElemento.dataset.preco = produto.preco;
+        precoElemento.textContent = formatarMoeda(produto.preco) + ' à vista no PIX';
+    }
+
+    const parceladoElemento = document.getElementById('preco_parcelado');
+    if (parceladoElemento) {
+        const valorParcela = produto.preco / produto.parcelas;
+        parceladoElemento.textContent =
+            'ou ' + produto.parcelas + 'x de ' + formatarMoeda(valorParcela) + ' sem juros';
+    }
+
+    const listaCaracteristicas = document.getElementById('lista_caracteristicas');
+    if (listaCaracteristicas) {
+        listaCaracteristicas.innerHTML = '';
+        produto.caracteristicas.forEach(function (item) {
+            const li = document.createElement('li');
+            li.textContent = item;
+            listaCaracteristicas.appendChild(li);
+        });
+    }
+
+    const descricaoElemento = document.getElementById('descricao_produto');
+    if (descricaoElemento) descricaoElemento.textContent = produto.descricao;
+
+    const listaAvaliacoes = document.getElementById('lista_avaliacoes');
+    if (listaAvaliacoes) {
+        listaAvaliacoes.innerHTML = '';
+        produto.avaliacoes.forEach(function (avaliacao) {
+            const div = document.createElement('div');
+            div.className = 'avaliacao';
+
+            const estrelas = '⭐'.repeat(avaliacao.estrelas);
+
+            const spanAutor = document.createElement('span');
+            spanAutor.textContent = avaliacao.autor + ' -';
+
+            const spanData = document.createElement('span');
+            spanData.textContent = '- ' + avaliacao.data;
+
+            const paragrafo = document.createElement('p');
+            paragrafo.textContent = avaliacao.texto;
+
+            div.appendChild(document.createTextNode(estrelas));
+            div.appendChild(spanAutor);
+            div.appendChild(spanData);
+            div.appendChild(paragrafo);
+
+            listaAvaliacoes.appendChild(div);
+        });
+    }
+
+    const inputQuantidade = document.getElementById('quantidade');
+    const valorParcialElemento = document.getElementById('valor_parcial');
+
+    if (!inputQuantidade || !valorParcialElemento) return;
+
+    function obterQuantidadeSelecionada() {
+        let quantidade = parseInt(inputQuantidade.value, 10);
+
+        if (isNaN(quantidade) || quantidade < 1) {
+            quantidade = 1;
+        }
+
+        return quantidade;
+    }
+
+    function atualizarValorParcial() {
+        const total = produto.preco * obterQuantidadeSelecionada();
+        valorParcialElemento.textContent = 'Valor parcial: ' + formatarMoeda(total);
+    }
+
+    inputQuantidade.addEventListener('input', atualizarValorParcial);
+    inputQuantidade.addEventListener('change', atualizarValorParcial);
+
+    atualizarValorParcial();
+
+    const botaoAdicionar = document.getElementById('btn_adicionar_carrinho');
+    const mensagemCarrinho = document.getElementById('mensagem_carrinho');
+
+    if (botaoAdicionar && typeof adicionarAoCarrinho === 'function') {
+        botaoAdicionar.addEventListener('click', function () {
+            const quantidade = obterQuantidadeSelecionada();
+
+            adicionarAoCarrinho(produto.id, quantidade);
+
+            if (mensagemCarrinho) {
+                mensagemCarrinho.textContent =
+                    quantidade + 'x "' + produto.nome + '" adicionado ao carrinho!';
+                mensagemCarrinho.classList.remove('mensagem_erro');
+                mensagemCarrinho.classList.add('mensagem_sucesso');
+            }
+        });
+    }
+});
+</file>
+
+<file path="js/produtos.js">
+const produtos = [
+    {
+        id: 1,
+        nome: "Memória DDR4 Corsair Vengeance RGB Pro, 16GB (2x8GB)",
+        imagem: "Img/RAM_corsair.jpg",
+        alt: "Memória DDR4 Corsair Vengeance RGB Pro 16GB (2x8GB)",
+        preco: 699.90,
+        parcelas: 10,
+        caracteristicas: [
+            "Capacidade: 16GB (2x8GB).",
+            "Tipo: DDR4.",
+            "Frequência: 3200MHz.",
+            "RGB Integrado.",
+            "Compatível com Intel e AMD."
+        ],
+        descricao: "A memória DDR4 VENGEANCE RGB PRO Series da CORSAIR com overclocking ilumina seu PC com luzes RGB dinâmicas multizona enquanto oferece o melhor desempenho.",
+        avaliacoes: [
+            { estrelas: 3, autor: "Pietro", data: "22/02/2026", texto: "malditas IAS que estão deixando tudo caro. Basta de novela de frutinha." },
+            { estrelas: 5, autor: "Nicolas Neto", data: "10/03/2026", texto: "Um preço justo considerando as novelas de frutinhas. Viva as IAS!!!" },
+            { estrelas: 1, autor: "Cauã", data: "05/01/2026", texto: "Comprei e explodiu." },
+            { estrelas: 2, autor: "Petrus Gunder", data: "18/12/2025", texto: "esa Tranceira veio muito legal mas ta muinto caro nao recomento" }
+        ]
+    },
+    {
+        id: 2,
+        nome: "Gabinete montech X3 mesh",
+        imagem: "Img/gabinete_Montech_X3_MESH.jpg",
+        alt: "Gabinete montech X3 mesh",
+        preco: 299.99,
+        parcelas: 10,
+        caracteristicas: [
+            "Frontal em malha (mesh) para melhor fluxo de ar.",
+            "Suporta placas-mãe ATX, Micro-ATX e Mini-ITX.",
+            "Painel lateral em vidro temperado.",
+            "Espaço para até 6 fans.",
+            "Gerenciamento de cabos facilitado."
+        ],
+        descricao: "O gabinete Montech X3 Mesh oferece ótimo fluxo de ar graças ao seu frontal perfurado, além de um visual moderno com vidro temperado lateral para exibir seus componentes.",
+        avaliacoes: [
+            { estrelas: 5, autor: "Pedro ledless", data: "12/01/2026", texto: "Apenas por ser um gabinete sem frufru ja vale o preço." },
+            { estrelas: 4, autor: "Ryan Martinez", data: "03/02/2026", texto: "Vale lembrar que precisa de uma chave philips pra abrir." }
+        ]
+    },
+    {
+        id: 3,
+        nome: "CPU Ryzen 5 5500",
+        imagem: "Img/R5-5500.jpg",
+        alt: "CPU Ryzen 5 5500",
+        preco: 578.99,
+        parcelas: 10,
+        caracteristicas: [
+            "6 núcleos / 12 threads.",
+            "Clock base de 3.6GHz, turbo até 4.2GHz.",
+            "Soquete AM4.",
+            "Não acompanha vídeo integrado.",
+            "Cooler Wraith Stealth incluso."
+        ],
+        descricao: "O Ryzen 5 5500 é uma excelente opção custo-benefício para quem quer montar um PC gamer de entrada, com ótimo desempenho em jogos e tarefas do dia a dia.",
+        avaliacoes: [
+            { estrelas: 5, autor: "Hank", data: "15/01/2026", texto: "Serviu bem pro que eu queria." },
+            { estrelas: 4, autor: "Jesse", data: "20/01/2026", texto: "Cara, esse processador é ótimo, mas é PCI-e 3.0" }
+        ]
+    },
+    {
+        id: 4,
+        nome: "CPU Intel Core Ultra 7 270k Plus",
+        imagem: "Img/core-u7-270k+.jpg",
+        alt: "CPU Intel Core Ultra 7 270k Plus",
+        preco: 1999.90,
+        parcelas: 10,
+        caracteristicas: [
+            "Arquitetura Intel de última geração.",
+            "Alto desempenho em multitarefa e jogos.",
+            "Suporte a memórias DDR5.",
+            "Overclock liberado (versão K).",
+            "TDP configurável."
+        ],
+        descricao: "O Core Ultra 7 270K Plus entrega desempenho de ponta para gamers e criadores de conteúdo, com arquitetura eficiente e suporte às tecnologias mais recentes.",
+        avaliacoes: [
+            { estrelas: 5, autor: "Rafael", data: "01/02/2026", texto: "Apesar de ser a mesma geração de antes, o desempenho melhorou bastante." },
+            { estrelas: 5, autor: "Jorge Aldubo", data: "05/02/2026", texto: "funcionou bem no adobe, desempenho aumentou muito" }
+        ]
+    },
+    {
+        id: 5,
+        nome: "Placa de vídeo intel ARC B580",
+        imagem: "Img/intel-arc-b580.jpg",
+        alt: "Placa de vídeo intel ARC B580",
+        preco: 2099.99,
+        parcelas: 10,
+        caracteristicas: [
+            "12GB de memória GDDR6.",
+            "Suporte a Ray Tracing.",
+            "Ideal para jogos em Full HD e QHD.",
+            "Conectores DisplayPort e HDMI.",
+            "Tecnologia Intel XeSS."
+        ],
+        descricao: "A Intel ARC B580 é uma placa de vídeo com ótimo custo-benefício, entregando boa performance em jogos atuais com recursos modernos como ray tracing e upscaling via XeSS.",
+        avaliacoes: [
+            { estrelas: 5, autor: "Cauã", data: "10/02/2026", texto: "Melhor placa já feita na história." },
+            { estrelas: 2, autor: "Nicolas", data: "12/02/2026", texto: "Quem compra uma placa da intel? se fosse processador eu até entenderia." }
+        ]
+    },
+    {
+        id: 6,
+        nome: "Placa mãe Maxsun Z890",
+        imagem: "Img/maxsun-z890.webp",
+        alt: "Placa mãe Maxsun Z890",
+        preco: 2746.30,
+        parcelas: 10,
+        caracteristicas: [
+            "Chipset Intel Z890.",
+            "Suporte a memórias DDR5.",
+            "Múltiplos slots M.2 NVMe.",
+            "Wi-Fi e Bluetooth integrados.",
+            "Iluminação RGB integrada."
+        ],
+        descricao: "A placa-mãe Maxsun Z890 oferece recursos modernos para as CPUs Intel mais recentes, com boa entrega de energia e conectividade completa.",
+        avaliacoes: [
+            { estrelas: 5, autor: "Thiago", data: "18/02/2026", texto: "Fiz overclock e ficou liso liso liso." },
+            { estrelas: 2, autor: "Romeu", data: "20/02/2026", texto: "A bios tá em chines e eu não sei mudar." }
+        ]
+    },
+    {
+        id: 7,
+        nome: "Placa mãe B550 Aorus Elite",
+        imagem: "Img/b550m-asus-elite.webp",
+        alt: "Placa-mãe B550",
+        preco: 739.99,
+        parcelas: 10,
+        caracteristicas: [
+            "Chipset AMD B550.",
+            "Suporte a processadores Ryzen (AM4).",
+            "Slot PCIe 4.0.",
+            "Dissipadores reforçados.",
+            "Áudio de alta definição."
+        ],
+        descricao: "A Aorus Elite B550 é uma placa-mãe robusta para quem quer montar um PC Ryzen com boa entrega de energia e recursos completos para jogos e produtividade.",
+        avaliacoes: [
+            { estrelas: 3, autor: "Marcelo", data: "22/02/2026", texto: "Não veio parafuso do NVME" },
+            { estrelas: 1, autor: "Eduardo", data: "25/02/2026", texto: "Queimou com 3 semanas de uso e não me ressarciram." }
+        ]
+    },
+    {
+        id: 8,
+        nome: "Fonte Coolermaster Gold 850",
+        imagem: "Img/fonte-coolermaster-gold-850.webp",
+        alt: "fonte coolermaster gold 850",
+        preco: 399.99,
+        parcelas: 10,
+        caracteristicas: [
+            "Potência de 850W.",
+            "Certificação 80 Plus Gold.",
+            "Modular (cabos removíveis).",
+            "Ventoinha silenciosa.",
+            "Proteções contra sobretensão e curto-circuito."
+        ],
+        descricao: "A fonte Coolermaster Gold 850 garante energia estável e eficiente para configurações de alto desempenho, com cabos modulares para facilitar a montagem.",
+        avaliacoes: [
+            { estrelas: 5, autor: "Henrique", data: "01/03/2026", texto: "Meu pc ficou mais bonito e Não aumentou a conta de luz." },
+            { estrelas: 5, autor: "Luiza", data: "03/03/2026", texto: "Está alimentando meu servidor tranquilamente." }
+        ]
+    },
+    {
+        id: 9,
+        nome: "NVME Kingston 2TB",
+        imagem: "Img/nvme-2tb-kingston.jpg",
+        alt: "NVME Kingston 2TB",
+        preco: 1759.99,
+        parcelas: 10,
+        caracteristicas: [
+            "Capacidade de 2TB.",
+            "Interface NVMe PCIe.",
+            "Velocidades de leitura/escrita elevadas.",
+            "Formato M.2 2280.",
+            "Ideal para jogos e edição de mídia."
+        ],
+        descricao: "O SSD NVMe Kingston 2TB oferece velocidade e capacidade para quem precisa de armazenamento rápido para jogos, aplicativos e arquivos grandes.",
+        avaliacoes: [
+            { estrelas: 5, autor: "Eduardo", data: "05/03/2026", texto: "Têm bastantante armazenamento, mas poderia ser mais" },
+            { estrelas: 5, autor: "Eduardo", data: "07/03/2026", texto: "Comprei mais, agora sim ficou bom." }
+        ]
+    }
+];
+</file>
+
+<file path="conexao.php">
+<?php
+const DB_HOST = 'localhost';
+const DB_NOME = 'kablau';
+const DB_USER = 'root';
+const DB_PASS = '';
+
+function conectar(): PDO
+{
+    static $pdo = null;
+
+    if ($pdo === null) {
+        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NOME . ';charset=utf8mb4';
+        $pdo = new PDO($dsn, DB_USER, DB_PASS, [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ]);
+    }
+
+    return $pdo;
+}
+</file>
+
+<file path="index.php">
+<?php
+require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/conexao.php';
+
+function e(string $valor): string
+{
+    return htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+}
+
+function formatarPreco(string|float $valor): string
+{
+    return 'R$' . number_format((float)$valor, 2, ',', '.');
+}
+
+$produtos = [];
+$erroBanco = false;
+
+try {
+    $produtos = conectar()
+        ->query('SELECT id, nome, categoria, imagem, preco FROM produtos ORDER BY id')
+        ->fetchAll();
+} catch (PDOException $ex) {
+    error_log('Erro ao listar produtos: ' . $ex->getMessage());
+    $erroBanco = true;
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Kablau</title>
+</head>
+<body>
+    <div id="navbar">
+        <img id="logo" src="Img/kablau.png" alt="logo da loja kablau">
+        <label id="barra_pesquisa" for="pesquisa"><input type="text" id="pesquisa" placeholder="Busque na Kablau"></label>
+        <span>
+            <?php if (estaLogado()): ?>
+                Olá, <?= e($_SESSION['usuario_nome']) ?>
+                <a href="logout.php" class="btn_comprar">Sair</a>
+            <?php else: ?>
+                <a href="login.php" class="btn_comprar">Fazer login</a>
+            <?php endif; ?>
+            <a href="carrinho.php" class="btn_comprar">Carrinho</a>
+        </span>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <td>Placa-mãe</td>
+                <td>CPU</td>
+                <td>GPU</td>
+                <td>RAM</td>
+                <td>Armazenamento</td>
+                <td>Fonte</td>
+                <td>Gabinete</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="loja">
+        <?php if ($erroBanco): ?>
+            <p>Não foi possível carregar os produtos no momento. Tente novamente mais tarde.</p>
+        <?php elseif (empty($produtos)): ?>
+            <p>Nenhum produto cadastrado.</p>
+        <?php else: ?>
+            <?php foreach ($produtos as $p): ?>
+                <div class="produto" data-categoria="<?= e($p['categoria']) ?>">
+                    <img class="Img_produto" src="<?= e($p['imagem']) ?>" alt="<?= e($p['nome']) ?>">
+                    <div class="info_produto">
+                        <div class="Nome_produto"><?= e($p['nome']) ?></div>
+                        <div class="Preco"><?= formatarPreco($p['preco']) ?></div>
+                    </div>
+                    <a href="produto.html?id=<?= (int)$p['id'] ?>" class="btn_comprar">Comprar</a>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
+    <script src="js/filtro-produtos.js"></script>
+    <script src="js/autocomplete.js"></script>
+    <script src="js/categorias.js"></script>
+</body>
+</html>
+</file>
+
+<file path="logout.php">
+<?php
+session_start();
+
+$_SESSION = [];
+
+if (ini_get('session.use_cookies')) {
+    $p = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
+}
+
+session_destroy();
+
+header('Location: login.php');
+exit;
+</file>
+
+<file path="readme.txt">
+Esse é um projeto feito por Nicolas Silveira Teixeira e Cauã Passos de Abreu
+</file>
+
+<file path="sql/kablau.sql">
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Tempo de geração: 26/10/2026 às 20:04
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+CREATE DATABASE `kablau`;
+
+USE `kablau`; 
+
+--
+-- Banco de dados: `kablau`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produtos`
+--
+
+CREATE TABLE `produtos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nome` varchar(150) NOT NULL,
+  `categoria` varchar(50) NOT NULL,
+  `imagem` varchar(255) NOT NULL,
+  `preco` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id`, `nome`, `categoria`, `imagem`, `preco`) VALUES
+(1, 'Memória DDR4 Corsair Vengeance RGB Pro, 16GB (2x8GB)', 'RAM', 'Img/RAM_corsair.jpg', 699.90),
+(2, 'Gabinete montech X3 mesh', 'Gabinete', 'Img/gabinete_Montech_X3_MESH.jpg', 299.99),
+(3, 'CPU Ryzen 5 5500', 'CPU', 'Img/R5-5500.jpg', 578.99),
+(4, 'CPU Intel Core Ultra 7 270k Plus', 'CPU', 'Img/core-u7-270k+.jpg', 1999.90),
+(5, 'Placa de vídeo intel ARC B580', 'GPU', 'Img/intel-arc-b580.jpg', 2099.99),
+(6, 'Placa mãe Maxsun Z890', 'Placa-mãe', 'Img/maxsun-z890.webp', 2746.30),
+(7, 'Placa mãe B550 Aorus Elite', 'Placa-mãe', 'Img/b550m-asus-elite.webp', 739.99),
+(8, 'Fonte Coolermaster Gold 850', 'Fonte', 'Img/fonte-coolermaster-gold-850.webp', 399.99),
+(9, 'NVME Kingston 2TB', 'Armazenamento', 'Img/nvme-2tb-kingston.jpg', 1759.99);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nome` varchar(120) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `senha_hash` varchar(255) NOT NULL,
+  `cpf` char(11) NOT NULL,
+  `nascimento` date NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `produtos`
+--
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario` (`usuario`),
+  ADD UNIQUE KEY `cpf` (`cpf`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+</file>
+
+<file path="auth.php">
+<?php
+
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path'     => '/',
+    'httponly' => true,
+    'samesite' => 'Lax',
+    'secure'   => !empty($_SERVER['HTTPS']),
+]);
+session_start();
+
+function estaLogado(): bool
+{
+    return isset($_SESSION['usuario_id']);
+}
+
+function exigirLogin(): void
+{
+
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+
+    if (!estaLogado()) {
+        header('Location: login.php?acesso=negado');
+        exit;
+    }
+}
+</file>
+
+<file path="cadastro.php">
+<?php
+require_once __DIR__ . '/conexao.php';
+
+function validarCpf(string $cpf): bool
+{
+    if (strlen($cpf) !== 11 || preg_match('/^(\d)\1{10}$/', $cpf)) {
+        return false;
+    }
+
+    for ($t = 9; $t < 11; $t++) {
+        $soma = 0;
+        for ($i = 0; $i < $t; $i++) {
+            $soma += (int)$cpf[$i] * (($t + 1) - $i);
+        }
+        $digito = ((10 * $soma) % 11) % 10;
+        if ((int)$cpf[$t] !== $digito) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function e(string $valor): string
+{
+    return htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+}
+
+$erros   = [];
+$sucesso = '';
+$dados   = ['nome' => '', 'usuario' => '', 'cpf' => '', 'nascimento' => '', 'email' => ''];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $dados['nome']       = trim($_POST['nome'] ?? '');
+    $dados['usuario']    = trim($_POST['usuario'] ?? '');
+    $dados['cpf']        = preg_replace('/\D/', '', $_POST['cpf'] ?? '');
+    $dados['nascimento'] = trim($_POST['nascimento'] ?? '');
+    $dados['email']      = trim($_POST['email'] ?? '');
+    $senha               = $_POST['senha'] ?? '';
+
+    if ($dados['nome'] === '' || mb_strlen($dados['nome']) > 120) {
+        $erros[] = 'Informe o nome (até 120 caracteres).';
+    }
+
+    if (!preg_match('/^[A-Za-z0-9_.-]{3,50}$/', $dados['usuario'])) {
+        $erros[] = 'O usuário deve ter de 3 a 50 caracteres (letras, números, _ . -).';
+    }
+
+    if (strlen($senha) < 4) {
+        $erros[] = 'A senha deve ter pelo menos 4 caracteres.';
+    }
+
+    if (!validarCpf($dados['cpf'])) {
+        $erros[] = 'CPF inválido.';
+    }
+
+    $data = DateTime::createFromFormat('Y-m-d', $dados['nascimento']);
+    if (!$data || $data->format('Y-m-d') !== $dados['nascimento']) {
+        $erros[] = 'Data de nascimento inválida.';
+    } elseif ($data > new DateTime('today')) {
+        $erros[] = 'A data de nascimento não pode estar no futuro.';
+    }
+
+    if (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL) || mb_strlen($dados['email']) > 150) {
+        $erros[] = 'E-mail inválido.';
+    }
+
+    if (empty($erros)) {
+        try {
+            $pdo = conectar();
+
+            $verifica = $pdo->prepare(
+                'SELECT usuario, cpf, email FROM usuarios
+                 WHERE usuario = :usuario OR cpf = :cpf OR email = :email'
+            );
+            $verifica->execute([
+                ':usuario' => $dados['usuario'],
+                ':cpf'     => $dados['cpf'],
+                ':email'   => $dados['email'],
+            ]);
+
+            foreach ($verifica->fetchAll() as $existente) {
+                if (strcasecmp($existente['usuario'], $dados['usuario']) === 0) {
+                    $erros[] = 'Este usuário já está em uso.';
+                }
+                if ($existente['cpf'] === $dados['cpf']) {
+                    $erros[] = 'Este CPF já está cadastrado.';
+                }
+                if (strcasecmp($existente['email'], $dados['email']) === 0) {
+                    $erros[] = 'Este e-mail já está cadastrado.';
+                }
+            }
+            $erros = array_values(array_unique($erros));
+
+            if (empty($erros)) {
+                $insere = $pdo->prepare(
+                    'INSERT INTO usuarios (nome, usuario, senha_hash, cpf, nascimento, email)
+                     VALUES (:nome, :usuario, :senha_hash, :cpf, :nascimento, :email)'
+                );
+                $insere->execute([
+                    ':nome'       => $dados['nome'],
+                    ':usuario'    => $dados['usuario'],
+                    ':senha_hash' => password_hash($senha, PASSWORD_DEFAULT),
+                    ':cpf'        => $dados['cpf'],
+                    ':nascimento' => $dados['nascimento'],
+                    ':email'      => $dados['email'],
+                ]);
+
+                $sucesso = 'Cadastro realizado com sucesso! Você já pode fazer login.';
+                $dados   = ['nome' => '', 'usuario' => '', 'cpf' => '', 'nascimento' => '', 'email' => ''];
+            }
+        } catch (PDOException $ex) {
+            if ($ex->getCode() === '23000') {
+                $erros[] = 'Usuário, CPF ou e-mail já cadastrado.';
+            } else {
+                error_log('Erro no cadastro: ' . $ex->getMessage());
+                $erros[] = 'Erro ao salvar o cadastro. Tente novamente mais tarde.';
+            }
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Kablau</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="navbar">
+        <a href="index.php"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+        <a href="index.php" class="btn_comprar">Voltar para a loja</a>
+    </div>
+
+    <div id="cadastro" class="login_container">
+
+        <form class="login_card" method="post" action="cadastro.php" novalidate>
+
+            <h2>Cadastre-se na Kablau</h2>
+
+            <!-- Mensagens do servidor (PHP) e do JavaScript compartilham este bloco -->
+            <div id="alerta_cadastro" class="alerta<?= $erros ? ' alerta_visivel' : '' ?>">
+                <?php foreach ($erros as $erro): ?>
+                    <div><?= e($erro) ?></div>
+                <?php endforeach; ?>
+            </div>
+
+            <?php if ($sucesso): ?>
+                <div class="alerta alerta_sucesso alerta_visivel"><?= e($sucesso) ?></div>
+            <?php endif; ?>
+
+            <label>Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"
+                   maxlength="120" value="<?= e($dados['nome']) ?>">
+
+            <label>Usuário</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Digite seu login"
+                   maxlength="50" value="<?= e($dados['usuario']) ?>">
+
+            <label>Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" minlength="4">
+
+            <label>CPF</label>
+            <input type="text" id="cpf" name="cpf" placeholder="Digite seu cpf (apenas números)"
+                   maxlength="11" value="<?= e($dados['cpf']) ?>">
+
+            <label>Data de nascimento</label>
+            <input type="date" id="nascimento" name="nascimento" value="<?= e($dados['nascimento']) ?>">
+
+            <label>Email</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email"
+                   maxlength="150" value="<?= e($dados['email']) ?>">
+
+            <button type="submit" class="btn_comprar">Cadastrar</button>
+
+            <span>Já está cadastrado? <a href="login.php">Fazer login</a></span>
+        </form>
+
+    </div>
+
+    <script src="js/cadastro.js"></script>
+</body>
+</html>
+</file>
+
+<file path="carrinho.php">
+<?php
+require_once __DIR__ . '/auth.php';
+exigirLogin();
+
+$nomeUsuario = htmlspecialchars($_SESSION['usuario_nome'], ENT_QUOTES, 'UTF-8');
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Kablau</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="navbar">
+        <a href="index.php"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+        <span>
+            Olá, <?= $nomeUsuario ?>
+            <a href="index.php" class="btn_comprar">Continuar comprando</a>
+            <a href="logout.php" class="btn_comprar">Sair</a>
+        </span>
+    </div>
+
+
+    <div class="carrinho_container">
+        <h2>Seu Carrinho</h2>
+
+        <div id="lista_itens_carrinho">
+        </div>
+
+        <div class="frete_box">
+            <h3>Calcular Frete</h3>
+            <label>CEP:</label>
+            <input type="text" id="cep" placeholder="Digite seu CEP (ex: 88780-000)" maxlength="9">
+            <p id="mensagem_frete" class="mensagem_status"></p>
+            <p>Frete: <b id="valor_frete">R$ 0,00</b></p>
+        </div>
+
+        <div class="frete_box">
+            <h3>Cupom de desconto</h3>
+            <label>Cupom:</label>
+            <input type="text" id="cupom" placeholder="Digite seu cupom">
+            <button type="button" id="btn_aplicar_cupom" class="btn_comprar">Aplicar cupom</button>
+            <p id="mensagem_cupom" class="mensagem_status"></p>
+        </div>
+
+        <div class="resumo_compra">
+            <h2>Resumo do Pedido</h2>
+            <p>Subtotal: <b id="subtotal_valor">R$ 0,00</b></p>
+            <p id="linha_desconto" class="linha_desconto">Desconto: <b id="desconto_valor">- R$ 0,00</b></p>
+            <p>Frete: <b id="frete_resumo">R$ 0,00</b></p>
+            <h3 class="total_final">Total da Compra: <span id="total_final_valor">R$ 0,00</span></h3>
+            <button class="btn_comprar">
+                Finalizar Compra
+            </button>
+        </div>
+    </div>
+
+    <script src="js/produtos.js"></script>
+    <script src="js/carrinho-utils.js"></script>
+    <script src="js/carrinho.js"></script>
+</body>
+</html>
+</file>
+
+<file path="login.php">
+<?php
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path'     => '/',
+    'httponly' => true,
+    'samesite' => 'Lax',
+    'secure'   => !empty($_SERVER['HTTPS']),
+]);
+session_start();
+
+require_once __DIR__ . '/conexao.php';
+
+function e(string $valor): string
+{
+    return htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+}
+
+$erro         = (($_GET['acesso'] ?? '') === 'negado')
+    ? 'Faça login para acessar essa página.'
+    : '';
+$sucesso      = '';
+$usuarioDigitado = '';
+$jaLogado     = isset($_SESSION['usuario_id']);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$jaLogado) {
+    $usuarioDigitado = trim($_POST['usuario'] ?? '');
+    $senha           = $_POST['senha'] ?? '';
+
+    if ($usuarioDigitado === '' || $senha === '') {
+        $erro = 'É necessário digitar usuário e senha para prosseguir';
+    } else {
+        try {
+            $pdo = conectar();
+            $stmt = $pdo->prepare(
+                'SELECT id, nome, usuario, senha_hash FROM usuarios WHERE usuario = :usuario LIMIT 1'
+            );
+            $stmt->execute([':usuario' => $usuarioDigitado]);
+            $usuario = $stmt->fetch();
+
+            $hash = $usuario['senha_hash'] ?? password_hash('senha-falsa', PASSWORD_DEFAULT);
+            $senhaOk = password_verify($senha, $hash);
+
+            if ($usuario && $senhaOk) {
+                if (password_needs_rehash($usuario['senha_hash'], PASSWORD_DEFAULT)) {
+                    $novo = $pdo->prepare('UPDATE usuarios SET senha_hash = :h WHERE id = :id');
+                    $novo->execute([':h' => password_hash($senha, PASSWORD_DEFAULT), ':id' => $usuario['id']]);
+                }
+
+                session_regenerate_id(true);
+
+                $_SESSION['usuario_id']   = (int)$usuario['id'];
+                $_SESSION['usuario_nome'] = $usuario['nome'];
+                $_SESSION['usuario_login'] = $usuario['usuario'];
+
+                $jaLogado = true;
+                $sucesso  = 'Login realizado com sucesso! Bem-vindo(a), ' . $usuario['nome'] . '.';
+            } else {
+                $erro = 'Usuário ou senha incorretos.';
+            }
+        } catch (PDOException $ex) {
+            error_log('Erro no login: ' . $ex->getMessage());
+            $erro = 'Erro ao tentar entrar. Tente novamente mais tarde.';
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Kablau</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="navbar">
+        <a href="index.php"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+        <a href="index.php" class="btn_comprar">Voltar para a loja</a>
+    </div>
+
+    <div class="login_container">
+
+        <?php if ($jaLogado): ?>
+
+            <div class="login_card">
+                <h2>Você está logado</h2>
+
+                <?php if ($sucesso): ?>
+                    <div class="alerta alerta_sucesso alerta_visivel"><?= e($sucesso) ?></div>
+                <?php else: ?>
+                    <p>Olá, <b><?= e($_SESSION['usuario_nome']) ?></b> (<?= e($_SESSION['usuario_login']) ?>).</p>
+                <?php endif; ?>
+
+                <a href="index.php" class="btn_comprar">Ir para a loja</a>
+                <a href="logout.php" class="btn_comprar">Sair</a>
+            </div>
+
+        <?php else: ?>
+
+            <form class="login_card" method="post" action="login.php" novalidate>
+
+                <h2>Entrar na Kablau</h2>
+
+                <div id="alerta_login" class="alerta<?= $erro ? ' alerta_visivel' : '' ?>"><?= e($erro) ?></div>
+
+                <label>Usuário</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Digite seu login"
+                       maxlength="50" value="<?= e($usuarioDigitado) ?>">
+
+                <label>Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+
+                <button type="submit" class="btn_comprar">Entrar</button>
+                <span>Novo na Kablau? <a href="cadastro.php">Cadastrar-se</a></span>
+            </form>
+
+        <?php endif; ?>
+
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
+</file>
+
+<file path="produto.html">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto - Kablau</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div id="navbar">
+    <a href="index.php"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+    <a href="index.php" class="btn_comprar">Voltar para loja</a>
+</div>
+
+<div class="produto_page">
+
+    <div class="produto_imagem">
+        <img id="imagem_produto" src="" alt="">
+    </div>
+
+    <div class="produto_compra">
+
+        <h2 id="nome_produto"></h2>
+
+        <p id="preco_avista" class="preco_avista"></p>
+        <p id="preco_parcelado" class="preco_parcelado"></p>
+
+        <p class="prazo">Entrega em até 5 dias úteis</p>
+        <span>
+            <label>Quantidade:</label>
+            <input type="number" value="1" min="1" id="quantidade" class="quantidade">
+        </span>
+
+        <p id="valor_parcial" class="valor_parcial"></p>
+
+        <button type="button" id="btn_adicionar_carrinho" class="btn_comprar">Adicionar ao carrinho</button>
+        <p id="mensagem_carrinho" class="mensagem_status"></p>
+
+        <h3>Formas de pagamento</h3>
+        <ul class="pagamentos">
+            <li>Cartão de Crédito (Visa / Mastercard)</li>
+            <li>Cartão de Débito</li>
+            <li>PIX</li>
+            <li>Boleto Bancário</li>
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="produto_detalhes">
+
+    <h3>Características do Produto:</h3>
+
+    <ul id="lista_caracteristicas" class="caracteristicas">
+    </ul>
+
+    <h3>Descrição:</h3>
+
+    <p id="descricao_produto">
+    </p>
+
+</div>
+
+<div class="avaliacoes">
+
+    <h3>Avaliações dos usuários:</h3>
+
+    <div id="lista_avaliacoes">
+    </div>
+
+</div>
+
+<script src="js/produtos.js"></script>
+<script src="js/carrinho-utils.js"></script>
+<script src="js/produto.js"></script>
+</body>
+</html>
+</file>
+
+<file path="style.css">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f4f6f8;
+}
+
+#navbar {
+    background-color: #111827;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+}
+
+#logo {
+    width: 200px;
+}
+
+#barra_pesquisa {
+    position: relative;
+}
+
+#barra_pesquisa input {
+    width: 480px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+.lista_sugestoes {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 480px;
+    background: white;
+    border-radius: 6px;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    list-style: none;
+    z-index: 100;
+}
+
+.item_sugestao {
+    padding: 10px 12px;
+    cursor: pointer;
+    color: #111827;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.item_sugestao:last-child {
+    border-bottom: none;
+}
+
+.item_sugestao:hover,
+.item_sugestao.ativo {
+    background-color: #f0f4ff;
+}
+
+.item_sugestao strong {
+    color: #2563eb;
+}
+
+table {
+    width: 100%;
+    background-color: #1f2937;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+td {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 200px;
+}
+
+td:hover {
+    background-color: #374151;
+    transform: scale(1.05);
+    border-radius: 5px;
+}
+
+.categoria_ativa {
+    background-color: #2563eb;
+    border-radius: 5px;
+}
+
+.loja {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.produto {  
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.Img_produto {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.info_produto {
+    flex-grow: 1;
+}
+
+.btn_comprar{
+    background-color: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    border: hidden;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn_comprar{
+    background-color: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    border: hidden;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn_comprar:hover {
+    background-color: #1d4ed8;
+}
+
+.Nome_produto {
+    font-size: 14px;
+    margin-bottom: 10px;
+    min-height: 40px;
+}
+
+.Preco {
+    font-size: 18px;
+    font-weight: bold;
+    color: #16a34a;
+    margin-bottom: 5px;
+}
+
+.produto::after:hover {
+    background-color: #1d4ed8;
+}
+
+.login_container {
+    height: 22vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.login_card h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login_card input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.login_card input:focus {
+    border-color: #2563eb;
+}
+
+.alerta {
+    display: none;
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.alerta_sucesso {
+    background-color: #dcfce7;
+    color: #16a34a;
+    border: 1px solid #86efac;
+}
+
+.alerta_visivel {
+    display: block;
+}
+
+#cadastro{
+    height: 42vw;
+}
+
+.produto_page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+
+.produto_imagem img {
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.produto_compra {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.preco_avista {
+    font-size: 24px;
+    font-weight: bold;
+    color: #16a34a;
+}
+
+.preco_parcelado {
+    color: #555;
+}
+
+.prazo {
+    font-weight: bold;
+}
+
+.quantidade{
+    width: 40px;
+}
+
+.valor_parcial {
+    font-size: 18px;
+    font-weight: bold;
+    color: #16a34a;
+}
+
+.pagamentos {
+    margin-left: 20px;
+}
+
+.produto_detalhes {
+    background: white;
+    margin: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: auto;
+    display: grid;
+    gap: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.caracteristicas {
+    margin-left: 20px;
+}
+
+.avaliacoes {
+    margin: 40px;
+}
+
+.avaliacao {
+    background: white;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.avaliacao span {
+    font-size: 12px;
+    color: gray;
+}
+
+.carrinho_container {
+    padding: 40px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.item_carrinho {
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.img_carrinho {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.info_carrinho {
+    flex-grow: 1;
+}
+
+.preco_total_item {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.frete_box {
+    background: white;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.frete_box input {
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.frete_box #btn_aplicar_cupom {
+    margin-left: 10px;
+    padding: 8px 16px;
+}
+
+.mensagem_status {
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.mensagem_sucesso {
+    color: #16a34a;
+}
+
+.mensagem_erro {
+    color: #b91c1c;
+}
+
+.linha_desconto b {
+    color: #b91c1c;
+}
+
+.info_carrinho label {
+    display: block;
+    margin: 8px 0;
+}
+
+.info_carrinho .quantidade_carrinho {
+    width: 60px;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-left: 6px;
+}
+
+.resumo_compra {
+    background: white;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: right;
+}
+
+.total_final {
+    margin-top: 15px;
+    color: #2563eb;
+}
+</file>
+
+</files>
