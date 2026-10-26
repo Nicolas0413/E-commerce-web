@@ -14,27 +14,21 @@ document.addEventListener('DOMContentLoaded', function () {
         { id: 'email', texto: 'o email' }
     ];
 
-    function limparAlerta() {
-        alerta.innerHTML = '';
-        alerta.classList.remove('alerta_visivel');
-    }
-
     form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
         const faltando = campos.filter(function (campo) {
             const input = document.getElementById(campo.id);
             return !input || input.value.trim() === '';
         });
 
         if (faltando.length > 0) {
-            const mensagens = faltando.map(function (campo) {
+            // Só bloqueia o envio quando há campo vazio;
+            // caso contrário o formulário segue para o cadastro.php
+            e.preventDefault();
+
+            alerta.innerHTML = faltando.map(function (campo) {
                 return '<div>Faltou digitar ' + campo.texto + '</div>';
-            });
-            alerta.innerHTML = mensagens.join('');
+            }).join('');
             alerta.classList.add('alerta_visivel');
-        } else {
-            limparAlerta();
         }
     });
 });
