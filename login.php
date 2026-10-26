@@ -37,19 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$jaLogado) {
             $stmt->execute([':usuario' => $usuarioDigitado]);
             $usuario = $stmt->fetch();
 
-            // Hash "falso" para que o tempo de resposta seja parecido
-            // quando o usuário não existe (evita descobrir logins válidos)
             $hash = $usuario['senha_hash'] ?? password_hash('senha-falsa', PASSWORD_DEFAULT);
             $senhaOk = password_verify($senha, $hash);
 
             if ($usuario && $senhaOk) {
-                // Atualiza o hash caso o algoritmo padrão do PHP tenha mudado
                 if (password_needs_rehash($usuario['senha_hash'], PASSWORD_DEFAULT)) {
                     $novo = $pdo->prepare('UPDATE usuarios SET senha_hash = :h WHERE id = :id');
                     $novo->execute([':h' => password_hash($senha, PASSWORD_DEFAULT), ':id' => $usuario['id']]);
                 }
 
-                // Evita fixação de sessão
                 session_regenerate_id(true);
 
                 $_SESSION['usuario_id']   = (int)$usuario['id'];
@@ -59,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$jaLogado) {
                 $jaLogado = true;
                 $sucesso  = 'Login realizado com sucesso! Bem-vindo(a), ' . $usuario['nome'] . '.';
             } else {
-                // Mensagem genérica: não revela se foi o usuário ou a senha
                 $erro = 'Usuário ou senha incorretos.';
             }
         } catch (PDOException $ex) {
@@ -81,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$jaLogado) {
 <body>
 
     <div id="navbar">
-        <a href="index.html"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
-        <a href="index.html" class="btn_comprar">Voltar para a loja</a>
+        <a href="index.php"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+        <a href="index.php" class="btn_comprar">Voltar para a loja</a>
     </div>
 
     <div class="login_container">
@@ -98,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$jaLogado) {
                     <p>Olá, <b><?= e($_SESSION['usuario_nome']) ?></b> (<?= e($_SESSION['usuario_login']) ?>).</p>
                 <?php endif; ?>
 
-                <a href="index.html" class="btn_comprar">Ir para a loja</a>
+                <a href="index.php" class="btn_comprar">Ir para a loja</a>
                 <a href="logout.php" class="btn_comprar">Sair</a>
             </div>
 
@@ -125,6 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$jaLogado) {
 
     </div>
 
-    <script src="login.js"></script>
+    <script src="js/login.js"></script>
 </body>
 </html>

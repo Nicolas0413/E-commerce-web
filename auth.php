@@ -1,7 +1,4 @@
 <?php
-// Inclua este arquivo no topo de qualquer página que exija login:
-//   require_once __DIR__ . '/auth.php';
-//   exigirLogin();
 
 session_set_cookie_params([
     'lifetime' => 0,
@@ -19,8 +16,7 @@ function estaLogado(): bool
 
 function exigirLogin(): void
 {
-    // Impede que o navegador guarde a página em cache:
-    // depois do logout, o botão "voltar" não mostra o conteúdo protegido.
+
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
     header('Pragma: no-cache');
 

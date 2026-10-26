@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dados['email']      = trim($_POST['email'] ?? '');
     $senha               = $_POST['senha'] ?? '';
 
-    // ---------- Validações ----------
     if ($dados['nome'] === '' || mb_strlen($dados['nome']) > 120) {
         $erros[] = 'Informe o nome (até 120 caracteres).';
     }
@@ -110,7 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $dados   = ['nome' => '', 'usuario' => '', 'cpf' => '', 'nascimento' => '', 'email' => ''];
             }
         } catch (PDOException $ex) {
-            
             if ($ex->getCode() === '23000') {
                 $erros[] = 'Usuário, CPF ou e-mail já cadastrado.';
             } else {
@@ -133,8 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <div id="navbar">
-        <a href="index.html"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
-        <a href="index.html" class="btn_comprar">Voltar para a loja</a>
+        <a href="index.php"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+        <a href="index.php" class="btn_comprar">Voltar para a loja</a>
     </div>
 
     <div id="cadastro" class="login_container">
@@ -143,6 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <h2>Cadastre-se na Kablau</h2>
 
+            <!-- Mensagens do servidor (PHP) e do JavaScript compartilham este bloco -->
             <div id="alerta_cadastro" class="alerta<?= $erros ? ' alerta_visivel' : '' ?>">
                 <?php foreach ($erros as $erro): ?>
                     <div><?= e($erro) ?></div>
@@ -177,11 +176,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit" class="btn_comprar">Cadastrar</button>
 
-            <span>Já está cadastrado? <a href="login.html">Fazer login</a></span>
+            <span>Já está cadastrado? <a href="login.php">Fazer login</a></span>
         </form>
 
     </div>
 
-    <script src="cadastro.js"></script>
+    <script src="js/cadastro.js"></script>
 </body>
 </html>

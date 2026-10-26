@@ -16,10 +16,10 @@ $nomeUsuario = htmlspecialchars($_SESSION['usuario_nome'], ENT_QUOTES, 'UTF-8');
 <body>
 
     <div id="navbar">
-        <a href="index.html"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
+        <a href="index.php"><img id="logo" src="Img/kablau.png" alt="logo da loja kablau"></a>
         <span>
             Olá, <?= $nomeUsuario ?>
-            <a href="index.html" class="btn_comprar">Continuar comprando</a>
+            <a href="index.php" class="btn_comprar">Continuar comprando</a>
             <a href="logout.php" class="btn_comprar">Sair</a>
         </span>
     </div>
@@ -59,8 +59,8 @@ $nomeUsuario = htmlspecialchars($_SESSION['usuario_nome'], ENT_QUOTES, 'UTF-8');
         </div>
     </div>
 
-    <script src="produtos.js"></script>
-    <script src="carrinho-utils.js"></script>
-    <script src="carrinho.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/carrinho-utils.js"></script>
+    <script src="js/carrinho.js"></script>
 </body>
 </html>
